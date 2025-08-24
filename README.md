@@ -35,8 +35,10 @@ A Windows automation tool that provides a sleek GUI interface for creating folde
    - Edit `run-script.bat` and update the path to the PowerShell script
 
 ## Usage
-
-### Method 1: Use shortcut apps like PowerToys:
+## Important : 
+- ###  Your desired location must be open in file explorer 
+- ### Windoes Defender might block when your location is Root Folder
+### Method 1: Use shortcut apps like PowerToys (recommended):
 1. Assign a keyboard shortcut for `run-script.bat`
 ### Method 2: Direct Execution
 1. Navigate to a folder in File Explorer where you want to create a new subfolder
