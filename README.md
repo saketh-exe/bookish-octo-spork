@@ -21,7 +21,7 @@ A Windows automation tool that provides a sleek GUI interface for creating folde
 
 1. **Clone this repository:**
    ```bash
-   git clone <repository-url>
+   git clone "https://github.com/saketh-exe/bookish-octo-spork.git"
    cd CreateAndOpen
    ```
 
