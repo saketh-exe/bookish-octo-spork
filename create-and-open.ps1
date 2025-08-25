@@ -1,25 +1,27 @@
 $shell = New-Object -ComObject Shell.Application
-$folder = $shell.Windows() | Where-Object { $_.Name -like "*File Explorer*" -and $_.Visible } | Select-Object -First 1 # selects the first visible File Explorer window
+$folder = $shell.Windows() | Where-Object { $_.Name -like "*File Explorer*" -and $_.Visible } | Select-Object -First 1
 
-if($null -ne $folder){ # if no explorer found then the code exits 
+$scriptFolder = $args[0].Trim('"')
+
+Write-Host $scriptFolder
+if ($null -ne $folder) {
     $path = $folder.Document.Folder.Self.Path
-    $process = Start-Process -FilePath python -ArgumentList "D:/openWithVSCode/CreateAndOpen/main.py" -NoNewWindow -RedirectStandardOutput "D:/openWithVSCode/CreateAndOpen/output.txt" -PassThru
+    $process = Start-Process -FilePath python -ArgumentList "$scriptFolder\main.py" -NoNewWindow -RedirectStandardOutput "$scriptFolder\output.txt" -PassThru
 
     Write-Host "Python PID: $($process.Id)"
 
-    $process.WaitForExit() # Wait here after getting the process object
+    $process.WaitForExit()
 
-    $name = Get-Content "D:/openWithVSCode/CreateAndOpen/output.txt"
+    $name = Get-Content "$scriptFolder\output.txt"
     if($name -eq "None" -or $name -eq " "){
-        Exit
+     Exit
     }
     else {
         if($name -ne ""){
-            mkdir "$path\$name"
+             mkdir "$path\$name"
         }
         code "$path\$name"
         Exit
     }
 }
 Exit
-

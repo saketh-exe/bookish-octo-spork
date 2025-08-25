@@ -7,6 +7,7 @@ A Windows automation tool that provides a sleek GUI interface for creating folde
 - 📁 **Smart Folder Creation**: Creates folders in the currently active File Explorer window
 - 🚀 **VS Code Integration**: Automatically opens the new folder in Visual Studio Code
 - ⌨️ **Keyboard Shortcuts**: ESC to cancel, Enter to confirm
+- 🔄 **Portable Installation**: Dynamic path detection - works from any location without configuration
 
 
 ## Prerequisites
@@ -30,9 +31,9 @@ A Windows automation tool that provides a sleek GUI interface for creating folde
    pip install PyQt6
    ```
 
-3. **Update file paths in the scripts:**
-   - Edit `create-and-open.ps1` and update the hardcoded paths to match your installation directory
-   - Edit `run-script.bat` and update the path to the PowerShell script
+3. **No additional configuration needed!**
+   - The scripts now automatically detect their location and work from any directory
+   - No manual path updates required
 
 ## Usage
 ## Important : 
@@ -72,22 +73,34 @@ CreateAndOpen/
 
 ## Configuration
 
-### Customizing Paths
-Update the hardcoded paths in `create-and-open.ps1` and `run-script.bat` to match your installation:
-### In `create-and-open.ps1` file:
+### Dynamic Path Detection ✅
+The scripts now automatically detect their installation location! No manual configuration needed.
+
+**How it works:**
+- `run-script.bat` uses `%~dp0` to find its own directory
+- `create-and-open.ps1` receives the script location as a parameter
+- All file references are dynamically resolved
+
+### ~~Customizing Paths~~ (No longer needed!)
+~~Update the hardcoded paths in `create-and-open.ps1` and `run-script.bat` to match your installation:~~
+### ~~In `create-and-open.ps1` file:~~
 ```powershell
-# Update these paths:
--ArgumentList "YOUR_PATH/main.py"
--RedirectStandardOutput "YOUR_PATH/output.txt"
-$name = Get-Content "YOUR_PATH/output.txt"
+# ✅ Now automatic! Script dynamically uses:
+# $scriptFolder variable for all paths
+# -ArgumentList "$scriptFolder\main.py"
+# -RedirectStandardOutput "$scriptFolder\output.txt"
+# $name = Get-Content "$scriptFolder\output.txt"
 ```
-### In `run-script.bat` file:
+### ~~In `run-script.bat` file:~~
+```batch
+# ✅ Now automatic! Script uses:
+# set "ScriptDir=%~dp0"
+# powershell.exe -File "%ScriptDir%\create-and-open.ps1" "%ScriptDir%"
 ```
-powershell.exe -File "YOUR_PATH/create-and-open.ps1"
-```
-## Current Issues:
-- Opens a cmd terminal needed for launching Python GUI in foreground
-- Built on Python so it's a bit slow while launching
+## Current Status:
+- ✅ **Dynamic Paths**: Scripts now automatically detect their location - no manual configuration needed!
+- ⚠️ Opens a cmd terminal needed for launching Python GUI in foreground
+- ⚠️ Built on Python so it's a bit slow while launching
 ## Troubleshooting
 
 ### Common Issues
@@ -126,6 +139,7 @@ python main.py
 This project is open source. Feel free to use, modify, and distribute as needed.
 
 ## Future Enhancements
+- [x] **Dynamic path detection** ✅ (Completed!)
 - [ ] Compiled languages integration
 - [ ] Support for multiple File Explorer windows
 - [ ] Configuration file for customizable settings
@@ -137,14 +151,14 @@ This project is open source. Feel free to use, modify, and distribute as needed.
 ## Screenshots
 
 File Explorer:
-![Image of File Explorer](image.png)
+![Image of File Explorer](./images/image.png)
 
 Script in Action:
 - it shows python process no (PID) too  
-![Working of the script](image-1.png)
+![Working of the script](./Images/image-1.png)
 
 Done and Opened in VS Code:
-![VS Code image](image-2.png)
+![VS Code image](./Images/image-2.png)
 
 ---
 

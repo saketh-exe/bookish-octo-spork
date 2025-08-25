@@ -1,2 +1,3 @@
 @echo off
-powershell.exe -File "D:/openWithVSCode/CreateAndOpen/create-and-open.ps1"
+set "ScriptDir=%~dp0"
+powershell.exe -File "%ScriptDir%\create-and-open.ps1" "%ScriptDir%"
